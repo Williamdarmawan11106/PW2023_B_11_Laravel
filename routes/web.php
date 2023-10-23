@@ -2,75 +2,89 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('perpustakaan');
+Route::get('admin/login', function () {
+    return view('admin/login_admin');
 });
 
-Route::get('/loginperpustakaan', function () {
-    return view('loginperpustakaan');
+
+Route::get('/admin', function () {
+    return view('admin/dashboard_admin', [
+        'petugas' => [
+            'nama' => 'Admin',
+        ],
+        'buku' =>     [
+            [
+                'no' => 1,
+                'judul' => 'Lorem',
+                'pengarang' => 'Doe',
+                'penerbit' => 'Atma Jaya'
+            ],
+            [
+                'no' => 2,
+                'judul' => 'Ipsum',
+                'pengarang' => 'Joe',
+                'penerbit' => 'UAJY Lib'
+            ]
+        ]
+    ]);
 });
 
-Route::get('/registerperpustakaan', function () {
-    return view('registerperpustakaan');
+Route::get('/admin/tambah_peminjaman', function () {
+    return view('admin/tambah_peminjaman', [
+        'buku' =>     [
+            [
+                'no' => 1,
+                'judul' => 'Lorem',
+                'pengarang' => 'Doe',
+                'penerbit' => 'Atma Jaya',
+                'jumlah' => 10
+            ],
+            [
+                'no' => 2,
+                'judul' => 'Ipsum',
+                'pengarang' => 'Joe',
+                'penerbit' => 'UAJY Lib',
+                'jumlah' => 3
+            ]
+        ]
+    ]);
 });
 
-Route::get('/dashboardpeminjaman', function () {
-    return view('dashboardpeminjaman');
+Route::get('/admin/pengembalian', function () {
+    return view('admin/pengembalian_buku', [
+        'buku' =>     [
+            [
+                'no' => 1,
+                'judul' => 'Lorem',
+                'jadwalKembali' => '20/10/2023',
+                'denda' => 'Rp. 10.000'
+            ],
+            [
+                'no' => 2,
+                'judul' => 'Ipsum',
+                'jadwalKembali' => '18/10/2023',
+                'denda' => 'Rp. 20.000'
+            ]
+        ]
+    ]);
 });
 
-Route::get('/dashboardpengembalian', function () {
-    return view('dashboardpengembalian');
+Route::get('/admin/tambah_buku', function () {
+    return view('admin/tambah_buku');
 });
 
-Route::get('/dashboardtambahbuku', function () {
-    return view('dashboardtambahbuku');
+Route::get('/admin/tambah_buku/tambah_pengarang', function () {
+    return view('admin/tambah_pengarang');
 });
 
-Route::get('/adminlogin', function () {
-    return view('adminlogin');
+Route::get('/admin/tambah_buku/tambah_penerbit', function () {
+    return view('admin/tambah_penerbit');
 });
 
-Route::get('/dashboardanggota', function () {
-    return view('dashboardanggota');
+Route::get('/admin/tambah_buku/tambah_kategori', function () {
+    return view('admin/tambah_kategori');
 });
 
-Route::get('/profileanggota', function () {
-    return view('profileanggota');
+Route::get('/admin/edit_buku', function () {
+    return view('admin/edit_buku');
 });
-
-Route::get('/profileadmin', function () {
-    return view('profileadmin');
-});
-
-Route::get('/dashboardadmin', function () {
-    return view('dashboardadmin');
-});
-
-Route::get('/tambahpenerbit', function () {
-    return view('tambahpenerbit');
-});
-
-Route::get('/tambahpengarang', function () {
-    return view('tambahpengarang');
-});
-
-Route::get('/tambahkategori', function () {
-    return view('tambahkategori');
-});
-
-Route::get('/dashboardbayar', function () {
-    return view('dashboardbayar');
-});
-
-Route::get('/qrispayment', function () {
-    return view('qrispayment');
-});
-
-Route::get('/banktransfer', function () {
-    return view('banktransfer');
-});
-
-Route::get('/minimarketpayment', function () {
-    return view('minimarketpayment');
-});
-
