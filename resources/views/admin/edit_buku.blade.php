@@ -49,6 +49,10 @@
                     </div>
 
                     <div class="row justify-content-start align-items-end">
+                        <div class="col-auto col-lg-3">
+                            <label for="bookCover">Cover Buku</label>
+                            <input type="file" id="bookCover" class="form-control" required>
+                        </div>
                         <div class="col-auto">
                             <label for="kategori">Kategori</label>
                             <select class="form-select">

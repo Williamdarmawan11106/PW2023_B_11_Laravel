@@ -22,7 +22,17 @@
                             <label for="nama">Kategori</label>
                             <input type="text" id="namaKategori" class="form-control" required>
                         </div>
+
+
                     </div>
+
+                    <div class="row justify-content-start align-items-end ">
+                        <div class="col-auto col-lg-1">
+                            <label for="warna">Warna</label>
+                            <input type="color" id="warnaKategori" class="form-control" required>
+                        </div>
+                    </div>
+
                     <div class="row justify-content-end align-items-end mt-2">
                         <div class="col-auto">
                             <button type="submit" class="btn btn-success w-100">Simpan</button>

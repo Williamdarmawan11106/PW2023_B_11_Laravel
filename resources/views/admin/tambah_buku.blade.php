@@ -17,7 +17,7 @@
                 <form action="{{url('admin')}}">
                     <div class="row justify-content-start align-items-end">
 
-                        <div class="col-auto">
+                        <div class="col-auto col-lg-3">
                             <label for="nama">Judul Buku</label>
                             <input type="text" id="judul" class="form-control" required>
                         </div>
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="row justify-content-start align-items-end">
-                        <div class="col-auto">
+                        <div class="col-auto col-lg-3">
                             <label for="stok">Stok</label>
                             <input type="number" id="stok" class="form-control" required>
                         </div>
@@ -54,6 +54,10 @@
 
                     </div>
                     <div class="row justify-content-start align-items-end">
+                        <div class="col-auto col-lg-3">
+                            <label for="bookCover">Cover Buku</label>
+                            <input type="file" id="bookCover" class="form-control" required>
+                        </div>
                         <div class="col-auto col-lg-2">
                             <label for="kategori">Kategori</label>
                             <select class="form-select">

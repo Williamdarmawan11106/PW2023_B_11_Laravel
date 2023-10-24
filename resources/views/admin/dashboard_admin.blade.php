@@ -31,6 +31,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th scope="col">No</th>
+                                <th scope="col">Cover Buku</th>
                                 <th scope="col">Judul Buku</th>
                                 <th scope="col">Pengarang</th>
                                 <th scope="col">Penerbit</th>
@@ -41,6 +42,7 @@
                         <tbody>
                             <tr>
                                 <th scope="row">{{ $item['no'] }}</th>
+                                <td><img src="{{ $item['book_cover'] }}" alt="book_cover" style="width: 100px"></td>
                                 <td>{{ $item['judul'] }}</td>
                                 <td>{{ $item['pengarang'] }}</td>
                                 <td>{{ $item['penerbit'] }}</td>
