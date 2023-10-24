@@ -23,7 +23,7 @@
                     </div>
                 </div>
 
-                <!-- TABLE BUKU SEDANG DIPINJAM -->
+                <!-- TABLE BUKU -->
                 <hr>
                 <h4 class="mt-4">List Buku</h4>
                 <div class="table-responsive">
