@@ -20,7 +20,7 @@
                         <div class="card" style="background-color: inherit; border: none; color: white;">
                             <a href="#" class="btn btn-sm" style="color: white; text-align:center;">
                                 Admin
-                                <img class="rounded-circle" alt="avatar1" src="{{'../images/person.jpg'}}" style="width: 40px;" />
+                                <img class="rounded-circle" alt="avatar1" src="{{'../../images/person.jpg'}}" style="width: 40px;" />
                             </a>
                         </div>
                     </div>
