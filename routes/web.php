@@ -141,12 +141,14 @@ Route::get('/admin', function () {
         'buku' =>     [
             [
                 'no' => 1,
+                'book_cover' => 'images/book_cover.jpeg',
                 'judul' => 'Lorem',
                 'pengarang' => 'Doe',
                 'penerbit' => 'Atma Jaya'
             ],
             [
                 'no' => 2,
+                'book_cover' => '../images/book_cover.jpeg',
                 'judul' => 'Ipsum',
                 'pengarang' => 'Joe',
                 'penerbit' => 'UAJY Lib'
