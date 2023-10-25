@@ -78,7 +78,7 @@ Route::get('/user', function () {
     return view('user/dashboard_user', [
         'user' => [
             'nama' => 'User',
-            'denda' => 50000,
+            'tagihan' => 50000,
         ],
         'buku_dipinjam' => [
             [

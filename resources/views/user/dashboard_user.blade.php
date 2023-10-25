@@ -20,7 +20,7 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col">
-                                        <p class="card-subtitle text-center">Rp. {{number_format($user['denda'],)}}</p>
+                                        <p class="card-subtitle text-center">Rp. {{number_format($user['tagihan'],)}}</p>
                                     </div>
                                 </div>
                             </div>
