@@ -14,7 +14,7 @@
     <header class="mb-4">
         <nav class="navbar justify-content-between py-2" style="background-color: #87aba1;">
             <div class="container py-2">
-                <a class="navbar-brand text-light" href="{{url('/user')}}">Perpus</a>
+                <a class="navbar-brand text-light" href="{{url('/user')}}">LIBRARIA</a>
                 <div class="row justify-content-center align-items-center">
                     <div class="col-auto">
                         <div class="card" style="background-color: inherit; border: none; color: white;">
