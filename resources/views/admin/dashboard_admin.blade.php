@@ -21,6 +21,10 @@
                     <div class="col-auto">
                         <a href="{{url('admin/tambah_buku')}}" class="btn btn-success mt-2 mt-md-0"><i class="fa-solid fa-plus"></i> Tambah Buku</a>
                     </div>
+
+                    <div class="col-auto">
+                        <a href="{{url('admin/user_management')}}" class="btn btn-success mt-2 mt-md-0"><i class="fa-solid fa-user"></i> User Management</a>
+                    </div>
                 </div>
 
                 <!-- TABLE BUKU -->
