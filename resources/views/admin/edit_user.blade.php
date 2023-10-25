@@ -24,7 +24,7 @@
                 <hr>
                 <h5>Edit Data</h5>
 
-                <form action="{{url('/user')}}">
+                <form action="{{url('/admin/user_management')}}">
                     <div class="form-group">
                         <div class="row mt-4">
                             <div class="col-auto col-sm-6">
