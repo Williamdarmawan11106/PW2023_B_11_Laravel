@@ -133,6 +133,19 @@ Route::get('/user/profile', function () {
     ]);
 });
 
+Route::get('/user/review_buku', function () {
+    return view('user/review_buku', [
+        'review' => [
+            'judul_buku' => 'Lorem',
+            'book_cover' => '../images/book_cover.jpeg',
+            'pengarang' => 'Joe',
+            'penerbit' => 'UAJY Lib',
+            'comment' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore perspiciatis fugiat sunt molestias cum. Culpa mollitia nulla reiciendis labore aliquam rem nam odit recusandae aliquid modi! Quasi voluptates accusamus ut.',
+            'rating' => '2'
+        ]
+    ]);
+});
+
 Route::get('/admin', function () {
     return view('admin/dashboard_admin', [
         'petugas' => [

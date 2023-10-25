@@ -90,6 +90,7 @@
                                 <th scope="col">Judul</th>
                                 <th scope="col">Tanggal Pinjam</th>
                                 <th scope="col">Tanggal Kembali</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         @forelse ($riwayat_pinjam as $item => $value)
@@ -99,6 +100,7 @@
                                 <td>{{$value['judul']}}</td>
                                 <td>{{$value['tgl_pinjam']}}</td>
                                 <td>{{$value['tgl_kembali']}}</td>
+                                <td><a href="{{url('user/review_buku')}}">Review</a></td>
                             </tr>
                         </tbody>
                         @empty
