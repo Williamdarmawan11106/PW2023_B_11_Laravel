@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar" style="background-color: #87aba1">
             <div class="container">
-                <a class="navbar-brand text-light" href="{{url('')}}">Perpus</a>
+                <a class="navbar-brand text-light" href="{{url('')}}">LIBRARIA</a>
             </div>
         </nav>
     </header>

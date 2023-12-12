@@ -133,6 +133,19 @@ Route::get('/user/profile', function () {
     ]);
 });
 
+Route::get('/user/review_buku', function () {
+    return view('user/review_buku', [
+        'review' => [
+            'judul_buku' => 'Lorem',
+            'book_cover' => '../images/book_cover.jpeg',
+            'pengarang' => 'Joe',
+            'penerbit' => 'UAJY Lib',
+            'comment' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore perspiciatis fugiat sunt molestias cum. Culpa mollitia nulla reiciendis labore aliquam rem nam odit recusandae aliquid modi! Quasi voluptates accusamus ut.',
+            'rating' => '2'
+        ]
+    ]);
+});
+
 Route::get('/admin', function () {
     return view('admin/dashboard_admin', [
         'petugas' => [
@@ -215,4 +228,41 @@ Route::get('/admin/tambah_buku/tambah_kategori', function () {
 
 Route::get('/admin/edit_buku', function () {
     return view('admin/edit_buku');
+});
+
+Route::get('/admin/user_management', function () {
+    return view('admin/user_management', [
+        'user' => [
+            [
+                'id' => 1,
+                'nama' => 'John',
+                'alamat' => 'Babarsari',
+                'no_tlp' => '0812345678',
+                'foto' => '../images/person.jpg',
+                'email' => 'john@gmail.com',
+                'password' => '1234',
+            ],
+            [
+                'id' => 2,
+                'nama' => 'John',
+                'alamat' => 'Babarsari',
+                'no_tlp' => '0812345678',
+                'foto' => '../images/person.jpg',
+                'email' => 'john@gmail.com',
+                'password' => '1234',
+            ]
+        ]
+    ]);
+});
+
+Route::get('/admin/edit_user', function () {
+    return view('admin/edit_user', [
+        'user' => [
+            'nama' => 'John',
+            'email' => 'john@gmail.com',
+            'alamat' => 'Jl. Lorem Ipsum',
+            'no_telp' => '08123456789',
+            'profile_picture' => '../images/person.jpg'
+        ]
+    ]);
 });
