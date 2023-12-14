@@ -1,6 +1,13 @@
 <?php
 
+use App\Http\Controllers\BayarTagihanController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,138 +20,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home', [
-        'buku' => [
-            [
-                'no' => 1,
-                'judul' => 'Lorem',
-                'bookCover' => 'images/book_cover.jpeg',
-                'pengarang' => 'Doe',
-                'kategori' => 'Technology'
-            ],
-            [
-                'no' => 2,
-                'judul' => 'Ipsum',
-                'bookCover' => 'images/book_cover.jpeg',
-                'pengarang' => 'Joe',
-                'kategori' => 'Sains'
-            ],
-            [
-                'no' => 1,
-                'judul' => 'Lorem',
-                'bookCover' => 'images/book_cover.jpeg',
-                'pengarang' => 'Doe',
-                'kategori' => 'Technology'
-            ],
-            [
-                'no' => 3,
-                'judul' => 'Ipsum',
-                'bookCover' => 'images/book_cover.jpeg',
-                'pengarang' => 'Joe',
-                'kategori' => 'Sains'
-            ],
-            [
-                'no' => 4,
-                'judul' => 'Lorem',
-                'bookCover' => 'images/book_cover.jpeg',
-                'pengarang' => 'Doe',
-                'kategori' => 'Technology'
-            ],
-            [
-                'no' => 5,
-                'judul' => 'Ipsum',
-                'bookCover' => 'images/book_cover.jpeg',
-                'pengarang' => 'Joe',
-                'kategori' => 'Sains'
-            ],
-        ]
-    ]);
-});
+Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/login', [LoginController::class, 'index']);
+Route::post('loginAction', [LoginController::class, 'loginAction'])->name('loginAction');
+
+Route::get('logout', [LoginController::class, 'actionLogout'])->name('actionLogout')->middleware('auth');
 
 Route::get('admin/login', function () {
     return view('admin/login_admin');
 });
 
-Route::get('/register', function () {
-    return view('register');
+Route::get('/register', [RegisterController::class, 'index']);
+Route::post('registerAction', [RegisterController::class, 'registerAction'])->name('registerAction');
+
+Route::get('register/verify/{verify_key}', [RegisterController::class, 'verify']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user', [UserDashboardController::class, 'index']);
+    Route::get('/user/bayar_tagihan', [BayarTagihanController::class, 'index']);
+    Route::post('actionBayar', [BayarTagihanController::class, 'actionBayar'])->name('actionBayar');
+    Route::get('/user/profile', [ProfileController::class, 'index']);
+    Route::post('actionUpdateProfile', [ProfileController::class, 'actionUpdateProfile'])->name('actionUpdateProfile');
+    Route::get('/user/review_buku/{id}', [ReviewController::class, 'index']);
+    Route::post('actionReview', [ReviewController::class, 'actionReview'])->name('actionReview');
 });
 
-Route::get('/user', function () {
-    return view('user/dashboard_user', [
-        'user' => [
-            'nama' => 'User',
-            'tagihan' => 50000,
-        ],
-        'buku_dipinjam' => [
-            [
-                'no' => 1,
-                'judul' => 'Kamus',
-                'tgl_pinjam' => '18/10/2023',
-                'sisa_durasi' => '2'
-            ],
-            [
-                'no' => 2,
-                'judul' => 'Lorem Ipsum',
-                'tgl_pinjam' => '15/10/2023',
-                'sisa_durasi' => '1'
-            ]
-        ],
-        'riwayat_pinjam' => [
-            [
-                'no' => 1,
-                'judul' => 'Lorem',
-                'pengarang' => 'Doe',
-                'penerbit' => 'Atma Jaya',
-                'tgl_pinjam' => '18/10/2023',
-                'tgl_kembali' => '20/10/2023',
-                'denda' => 'Rp. 10.000'
-            ],
-            [
-                'no' => 2,
-                'judul' => 'Ipsum',
-                'pengarang' => 'Joe',
-                'penerbit' => 'UAJY Lib',
-                'tgl_pinjam' => '15/10/2021',
-                'tgl_kembali' => '20/10/2023',
-                'denda' => 'Rp. 20.000'
-            ]
-        ]
-    ]);
-});
-
-Route::get('/user/bayar_tagihan', function () {
-    return view('user/bayar_tagihan');
-});
-
-Route::get('/user/profile', function () {
-    return view('user/profile_user', [
-        'user' => [
-            'nama' => 'John Doe',
-            'email' => 'johndoe@gmail.com',
-            'alamat' => 'Jl. Lorem Ipsum',
-            'no_telp' => '08123456789',
-            'profile_picture' => '../images/person.jpg'
-        ]
-    ]);
-});
-
-Route::get('/user/review_buku', function () {
-    return view('user/review_buku', [
-        'review' => [
-            'judul_buku' => 'Lorem',
-            'book_cover' => '../images/book_cover.jpeg',
-            'pengarang' => 'Joe',
-            'penerbit' => 'UAJY Lib',
-            'comment' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore perspiciatis fugiat sunt molestias cum. Culpa mollitia nulla reiciendis labore aliquam rem nam odit recusandae aliquid modi! Quasi voluptates accusamus ut.',
-            'rating' => '2'
-        ]
-    ]);
-});
 
 Route::get('/admin', function () {
     return view('admin/dashboard_admin', [

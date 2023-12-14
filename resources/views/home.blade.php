@@ -23,21 +23,15 @@
                     @forelse ($buku as $item)
                     <div class="col-sm-3 mt-4">
                         <div class="card h-100">
-                            <img src="{{$item['bookCover']}}" class="card-img-top" alt="...">
+                            <img src="http://127.0.0.1:8000/storage/{{$item['cover_buku']}}" class="card-img-top" alt="..." style="height: 320px;">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
                                         <h5 class="card-title">{{$item['judul']}}</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">{{$item['pengarang']}}</h6>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{$item['pengarang']['nama']}}</h6>
                                     </div>
                                     <div class="col-auto text-end">
-                                        @if ($item['kategori'] == 'Technology')
-                                        <span class="badge bg-primary">{{$item['kategori']}}</span>
-                                        @elseif ($item['kategori'] == 'Sains')
-                                        <span class="badge bg-success">{{$item['kategori']}}</span>
-                                        @else
-                                        <span class="badge bg-secondary">{{$item['kategori']}}</span>
-                                        @endif
+                                        <span class="badge" style="background-color: {{$item['kategori']['warna']}}">{{$item['kategori']['nama']}}</span>
                                     </div>
                                 </div>
                             </div>
