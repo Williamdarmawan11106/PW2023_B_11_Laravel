@@ -19,7 +19,6 @@ class Petugas extends Authenticatable
         'nama',
         'alamat',
         'no_telp',
-        'jabatan',
         'foto',
         'email',
         'password',

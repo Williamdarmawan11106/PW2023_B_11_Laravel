@@ -28,3 +28,5 @@ Route::post('/buku', [\App\Http\Controllers\Api\BukuController::class, 'store'])
 Route::get('/buku/{id}', [\App\Http\Controllers\Api\BukuController::class, 'search']);
 Route::post('/buku/{id}', [\App\Http\Controllers\Api\BukuController::class, 'update']);
 Route::delete('/buku/{id}', [\App\Http\Controllers\Api\BukuController::class, 'destroy']);
+
+Route::post('/register-petugas', [\App\Http\Controllers\Api\RegisterAdminController::class, 'store']);

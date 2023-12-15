@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\LoginAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +28,8 @@ Route::post('loginAction', [LoginController::class, 'loginAction'])->name('login
 
 Route::get('logout', [LoginController::class, 'actionLogout'])->name('actionLogout')->middleware('auth');
 
-Route::get('admin/login', function () {
-    return view('admin/login_admin');
-});
+Route::get('admin/login', [LoginAdminController::class, 'index']);
+Route::post('admin/loginAdminAction', [LoginAdminController::class, 'loginAdminAction'])->name('loginAdminAction');
 
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('registerAction', [RegisterController::class, 'registerAction'])->name('registerAction');
@@ -46,30 +46,34 @@ Route::middleware(['auth'])->group(function () {
     Route::post('actionReview', [ReviewController::class, 'actionReview'])->name('actionReview');
 });
 
-
-Route::get('/admin', function () {
-    return view('admin/dashboard_admin', [
-        'petugas' => [
-            'nama' => 'Admin',
-        ],
-        'buku' =>     [
-            [
-                'no' => 1,
-                'book_cover' => 'images/book_cover.jpeg',
-                'judul' => 'Lorem',
-                'pengarang' => 'Doe',
-                'penerbit' => 'Atma Jaya'
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin', function () {
+        return view('admin/dashboard_admin', [
+            'petugas' => [
+                'nama' => 'Admin',
             ],
-            [
-                'no' => 2,
-                'book_cover' => '../images/book_cover.jpeg',
-                'judul' => 'Ipsum',
-                'pengarang' => 'Joe',
-                'penerbit' => 'UAJY Lib'
+            'buku' =>     [
+                [
+                    'no' => 1,
+                    'book_cover' => 'images/book_cover.jpeg',
+                    'judul' => 'Lorem',
+                    'pengarang' => 'Doe',
+                    'penerbit' => 'Atma Jaya'
+                ],
+                [
+                    'no' => 2,
+                    'book_cover' => '../images/book_cover.jpeg',
+                    'judul' => 'Ipsum',
+                    'pengarang' => 'Joe',
+                    'penerbit' => 'UAJY Lib'
+                ]
             ]
-        ]
-    ]);
+        ]);
+    });
 });
+
+
+
 
 Route::get('/admin/tambah_peminjaman', function () {
     return view('admin/tambah_peminjaman', [
