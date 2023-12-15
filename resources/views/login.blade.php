@@ -29,14 +29,21 @@
                             <div class="card-title text-center">
                                 <h3>LOGIN</h3>
                             </div>
-                            <form action="{{url('user')}}" id="loginForm">
+                            @if (Session::has('error'))
+                            <div class="alert alert-danger">
+                                <b>Oops!</b> {{session('error')}}
+                            </div>
+                            @endif
+                            <form action="{{ route('loginAction') }}" method="post" id="loginForm">
+                                @csrf
+
                                 <label for="email">Email</label>
-                                <input type="email" id="email" class="form-control mb-2 py-2" placeholder="Masukkan email" required />
+                                <input type="email" name="email" id="email" class="form-control mb-2 py-2" placeholder="Masukkan email" required />
 
                                 <label for="password">Password</label>
-                                <input type="password" id="password" class="form-control mb-2 py-2" placeholder="Masukkan password" required />
+                                <input type="password" name="password" id="password" class="form-control mb-2 py-2" placeholder="Masukkan password" required />
 
-                                <p class="text-center">Belum punya akun? <a href="{{url('register')}}">daftar</a></p>
+                                <p class="text-center">Belum punya akun? <a href="{{ url('register') }}">daftar</a></p>
 
                                 <div class="row g-2">
                                     <div class="col">
@@ -45,12 +52,11 @@
                                         </button>
                                     </div>
                                     <div class="col-auto">
-                                        <a href="{{url('admin/login')}}" type="button" class="btn" style="background-color: #dba058"><i class="fa-solid fa-user-tie" style="color: #ffffff;"></i></a>
+                                        <a href="{{url('admin/login')}}" class="btn" style="background-color: #dba058"><i class="fa-solid fa-user-tie" style="color: #ffffff;"></i></a>
                                     </div>
-
                                 </div>
-
                             </form>
+
                         </div>
                     </div>
                 </div>

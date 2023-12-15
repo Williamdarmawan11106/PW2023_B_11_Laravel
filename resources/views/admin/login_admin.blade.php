@@ -29,12 +29,18 @@
                             <div class="card-title text-center">
                                 <h3>LOGIN ADMIN</h3>
                             </div>
-                            <form action="{{url('admin')}}" id="loginForm">
+                            @if (Session::has('error'))
+                            <div class="alert alert-danger">
+                                <b>Oops!</b> {{session('error')}}
+                            </div>
+                            @endif
+                            <form action="{{ route('loginAdminAction') }}" method="post">
+                                @csrf
                                 <label for="email">Email</label>
-                                <input type="email" id="email" class="form-control mb-2 py-2" placeholder="Masukkan email" required />
+                                <input type="email" name="email" id="email" class="form-control mb-2 py-2" placeholder="Masukkan email" required />
 
                                 <label for="password">Password</label>
-                                <input type="password" id="password" class="form-control mb-2 py-2" placeholder="Masukkan password" required />
+                                <input type="password" name="password" id="password" class="form-control mb-2 py-2" placeholder="Masukkan password" required />
 
 
                                 <div class="row g-2 mt-4">

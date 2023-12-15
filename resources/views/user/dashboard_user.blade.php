@@ -3,10 +3,21 @@
 
 <main>
     <div class="container">
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
+
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            {{ $errors->first() }}
+        </div>
+        @endif
         <div class="card">
             <div class="card-body">
                 <div class="card-title">
-                    <h3>Hi, John Doe 👋</h3>
+                    <h3>Hi, {{auth()->user()->nama}}👋</h3>
                 </div>
                 <div class="row justify-content-center justify-content-md-start align-items-center">
                     <!-- CARD TAGIHAN SAAT INI -->
@@ -20,7 +31,7 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col">
-                                        <p class="card-subtitle text-center">Rp. {{number_format($user['tagihan'],)}}</p>
+                                        <p class="card-subtitle text-center">Rp. {{ number_format(auth()->user()->denda ?? 0) }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -37,7 +48,7 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col">
-                                        <p class="card-subtitle text-center">{{count($buku_dipinjam)}}</p>
+                                        <p class="card-subtitle text-center">{{count($peminjaman)}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -61,19 +72,19 @@
                                 <th scope="col">Sisa Durasi</th>
                             </tr>
                         </thead>
-                        @forelse ($buku_dipinjam as $item => $value)
+                        @forelse ($peminjaman as $item => $value)
                         <tbody>
                             <tr>
                                 <th scope="row">{{$item+1}}</th>
-                                <td>{{$value['judul']}}</td>
-                                <td>{{$value['tgl_pinjam']}}</td>
-                                <td>{{$value['sisa_durasi']}} hari</td>
+                                <td>{{$value['buku']['judul']}}</td>
+                                <td>{{$value['peminjaman']['tgl_pinjam']}}</td>
+                                <td>{{ \Carbon\Carbon::parse($value['peminjaman']['tgl_pinjam'])->diffInDays($value['peminjaman']['tgl_kembali']) }} hari</td>
                             </tr>
                         </tbody>
                         @empty
                         <tbody>
                             <tr>
-                                <td colspan="5" class="text-center">Tidak ada buku yang dipinjam</td>
+                                <td colspan="5" class="text-center">Tidak ada buku yang sedang dipinjam</td>
                             </tr>
                         </tbody>
                         @endforelse
@@ -93,14 +104,14 @@
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
-                        @forelse ($riwayat_pinjam as $item => $value)
+                        @forelse ($riwayatPeminjaman as $item => $value)
                         <tbody>
                             <tr>
                                 <th scope="row">{{$item+1}}</th>
-                                <td>{{$value['judul']}}</td>
-                                <td>{{$value['tgl_pinjam']}}</td>
-                                <td>{{$value['tgl_kembali']}}</td>
-                                <td><a href="{{url('user/review_buku')}}">Review</a></td>
+                                <td>{{$value['buku']['judul']}}</td>
+                                <td>{{$value['peminjaman']['tgl_pinjam']}}</td>
+                                <td>{{$value['pengembalian']['tgl_pengembalian']}}</td>
+                                <td><a href="{{url('user/review_buku').'/'.$value['buku']['id']}}">Review</a></td>
                             </tr>
                         </tbody>
                         @empty

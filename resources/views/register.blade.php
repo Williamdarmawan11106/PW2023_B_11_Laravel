@@ -26,21 +26,32 @@
                             <div class="card-title text-center">
                                 <h3>REGISTER</h3>
                             </div>
-                            <form action="#" id="loginForm">
+                            @if (Session::has('error'))
+                            <div class="alert alert-danger">
+                                <b>Oops!</b> {{session('error')}}
+                            </div>
+                            @endif
+                            <form action="{{ route('registerAction') }}" method="post" id="loginForm" enctype="multipart/form-data">
+                                @csrf
                                 <label for="nama">Nama</label>
-                                <input type="text" id="nama" class="form-control mb-2 py-2" required />
+                                <input type="text" name="nama" class="form-control mb-2 py-2" required />
 
                                 <label for="alamat">Alamat</label>
-                                <input type="text" id="alamat" class="form-control mb-2 py-2" required />
+                                <input type="text" name="alamat" class="form-control mb-2 py-2" required />
 
-                                <label for="noTelp">No Telp</label>
-                                <input type="tel" id="noTelp" class="form-control mb-2 py-2" required />
+                                <label for="no_telp">No Telp</label>
+                                <input type="tel" name="no_telp" class="form-control mb-2 py-2" required />
 
                                 <label for="email">Email</label>
-                                <input type="email" id="email" class="form-control mb-2 py-2" required />
+                                <input type="email" name="email" class="form-control mb-2 py-2" required />
 
                                 <label for="password">Password</label>
-                                <input type="password" id="password" class="form-control mb-2 py-2" required />
+                                <input type="password" name="password" class="form-control mb-2 py-2" required />
+
+                                <label for="foto" class="form-label">Foto Profil</label>
+                                <input class="form-control" type="file" name="foto" accept="image/*" required>
+
+                                <hr class="hr" />
 
                                 <p class="text-center">Sudah punya akun? <a href="{{url('login')}}">Login</a></p>
 

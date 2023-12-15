@@ -19,13 +19,13 @@
                     <div class="col-auto">
                         <div class="card" style="background-color: inherit; border: none; color: white;">
                             <a href="{{url('/user/profile')}}" class="btn btn-sm" style="color: white; text-align:center;">
-                                John Doe
-                                <img class="rounded-circle" alt="avatar1" src="{{'../images/person.jpg'}}" style="width: 40px;" />
+                                {{auth()->user()->nama}}
+                                <img class="rounded-circle" alt="avatar1" src="{{'http://127.0.0.1:8000/storage/' . auth()->user()->foto ?? 'profile/blank-profile-picture-973460_1280.png'}}" style="width: 40px;" />
                             </a>
                         </div>
                     </div>
                     <div class="col">
-                        <a class="text-light" href="{{url('')}}"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                        <a class="text-light" href="{{url('logout')}}"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
                     </div>
                 </div>
             </div>
