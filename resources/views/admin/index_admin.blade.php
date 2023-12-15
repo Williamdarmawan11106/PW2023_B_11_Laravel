@@ -11,7 +11,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <header class="mb-4">
+    <header class="mb-3">
         <nav class="navbar justify-content-between py-2" style="background-color: #87aba1;">
             <div class="container py-2">
                 <a class="navbar-brand text-light" href="{{url('admin')}}">LIBRARIA</a>
@@ -20,7 +20,7 @@
                         <div class="card" style="background-color: inherit; border: none; color: white;">
                             <a href="#" class="btn btn-sm" style="color: white; text-align:center;">
                                 Admin
-                                <img class="rounded-circle" alt="avatar1" src="{{'../../images/person.jpg'}}" style="width: 40px;" />
+                                <img class="rounded-circle" alt="avatar1" src="{{'http://127.0.0.1:8000/storage/' . auth()->user()->foto ?? 'profile/blank-profile-picture-973460_1280.png'}}" style="width: 40px;" />
                             </a>
                         </div>
                     </div>

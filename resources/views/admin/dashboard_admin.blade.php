@@ -3,10 +3,16 @@
 
 <main>
     <div class="container">
+        @if (Session::has('success'))
+        <div class="alert alert-success">
+            <b>Success!</b> {{session('success')}}
+        </div>
+        @endif
         <div class="card">
             <div class="card-body">
+
                 <div class="card-title">
-                    <h3>Hi, {{ $petugas['nama'] }} 👋</h3>
+                    <h3>Hi, {{auth()->user()->nama}} 👋</h3>
                 </div>
                 <div class="row justify-content-center justify-content-md-start align-items-center">
                     <!-- Tambah Peminjaman -->
@@ -46,11 +52,11 @@
                         <tbody>
                             <tr>
                                 <th scope="row">{{ $item['no'] }}</th>
-                                <td><img src="{{ $item['book_cover'] }}" alt="book_cover" style="width: 100px"></td>
+                                <td><img src="{{'http://127.0.0.1:8000/storage/' . $item['cover_buku'] }}" alt="book_cover" style="height: 160px; aspect-ratio:1/1.5"></td>
                                 <td>{{ $item['judul'] }}</td>
-                                <td>{{ $item['pengarang'] }}</td>
-                                <td>{{ $item['penerbit'] }}</td>
-                                <td><a href="{{url('admin/edit_buku')}}">Edit</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Hapus</a></td>
+                                <td>{{ $item['pengarang']['nama'] }}</td>
+                                <td>{{ $item['penerbit']['nama'] }}</td>
+                                <td><a href="{{url('admin/edit_buku', $item['id'])}}">Edit</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Hapus</a></td>
                             </tr>
                         </tbody>
                         @empty
@@ -76,7 +82,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <a href="{{url('admin')}}" class="btn btn-danger">Hapus</a>
+                                <a href="{{url('actionDeleteBuku', $item['id'])}}" class="btn btn-danger">Hapus</a>
                             </div>
                         </div>
                     </div>

@@ -15,21 +15,19 @@
                 <div class="card-title">
                     <h3>TAMBAH KATEGORI</h3>
                 </div>
-                <form action="{{url('admin/tambah_buku')}}">
+                <form action="{{route('actionTambahKategori')}}" method="post">
+                    @csrf
                     <div class="row justify-content-start align-items-end">
-
                         <div class="col-auto">
-                            <label for="nama">Kategori</label>
-                            <input type="text" id="namaKategori" class="form-control" required>
+                            <label for="nama">Nama Kategori</label>
+                            <input type="text" name="nama" id="namaKategori" class="form-control" required>
                         </div>
-
-
                     </div>
 
                     <div class="row justify-content-start align-items-end ">
                         <div class="col-auto col-lg-1">
                             <label for="warna">Warna</label>
-                            <input type="color" id="warnaKategori" class="form-control" required>
+                            <input type="color" name="warna" id="warnaKategori" class="form-control" required>
                         </div>
                     </div>
 
@@ -39,11 +37,6 @@
                         </div>
                     </div>
                 </form>
-
-
-
-
-
             </div>
         </div>
     </div>
