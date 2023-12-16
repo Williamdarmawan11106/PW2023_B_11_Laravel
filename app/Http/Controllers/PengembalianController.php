@@ -14,31 +14,35 @@ class PengembalianController extends Controller
 {
     public function index()
     {
-        $detailPeminjaman = DetailPeminjaman::where('id', null);
+        $detailPeminjaman = DetailPeminjaman::where('id', null)->get()->load('anggota');
+        $nama = null;
         $null = "Silahkan masukkan data peminjam terlebih dahulu";
         $user = User::all();
 
         // return $detailPeminjaman;
-        return view('admin.pengembalian_buku', compact('detailPeminjaman', 'null', 'user'));
+        return view('admin.pengembalian_buku', compact('detailPeminjaman', 'null', 'user', 'nama'));
     }
 
     public function actionCari(Request $request)
     {
         $data = $request->all();
         $detailPeminjaman = DetailPeminjaman::where('id', null);
+        $nama = null;
         $null = "Silahkan masukkan data peminjam terlebih dahulu";
         $user = User::all();
 
         if ($data['id_user'] == null) {
-            return view('admin.pengembalian_buku', compact('detailPeminjaman', 'null', 'user'));
+            return view('admin.pengembalian_buku', compact('detailPeminjaman', 'null', 'user', 'nama'));
         }
 
-        $detailPeminjaman = DetailPeminjaman::where('id_anggota', $data['id_user'])->where('id_pengembalian', null)->get();
+        $detailPeminjaman = DetailPeminjaman::where('id_anggota', $data['id_user'])->where('id_pengembalian', null)->get()->load('anggota');
         if ($detailPeminjaman->isEmpty()) {
-            return view('admin.pengembalian_buku', compact('detailPeminjaman', 'null', 'user'));
+            $nama = User::find($data['id_user'])->nama;
+            $null = "User belum meminjam buku";
+            return view('admin.pengembalian_buku', compact('detailPeminjaman', 'null', 'user', 'nama'));
         }
-
-        return view('admin.pengembalian_buku', compact('detailPeminjaman', 'null', 'user'));
+        $nama = $detailPeminjaman[0]->anggota->nama;
+        return view('admin.pengembalian_buku', compact('detailPeminjaman', 'null', 'user', 'nama'));
     }
 
     public function actionPerpanjang($id)

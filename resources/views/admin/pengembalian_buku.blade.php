@@ -30,8 +30,12 @@
                         <div class="col-auto">
                             <label for="nama">Nama peminjam</label>
                             <br>
-                            <select id="user" name="id_user" class="form-control w-100" tabindex="-1" aria-hidden="true" required>
+                            <select name="id_user" class="form-control" required>
+                                @if ($nama == null)
                                 <option selected disabled hidden>Nama Peminjam</option>
+                                @else
+                                <option selected disabled hidden>{{$nama}}</option>
+                                @endif
                                 @foreach ($user as $item)
                                 <option value="{{$item['id']}}">{{$item['nama']}}</option>
                                 @endforeach
