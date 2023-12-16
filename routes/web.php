@@ -20,6 +20,7 @@ use App\Http\Controllers\TambahPenerbitController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\TambahPeminjamanController;
 use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\ReviewBukuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ use App\Http\Controllers\PengembalianController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/review/{id}', [ReviewBukuController::class, 'index']);
 
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('loginAction', [LoginController::class, 'loginAction'])->name('loginAction');

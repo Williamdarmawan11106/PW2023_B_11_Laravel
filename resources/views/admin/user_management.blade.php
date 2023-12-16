@@ -46,9 +46,27 @@
                                     <td>{{ $value['email'] }} <span class="badge text-bg-success">Verified</span></td>
                                     @endif
                                     <td>{{ $value['alamat'] }}</td>
-                                    <td><a href="{{url('admin/user_management/edit_user', $value['id'])}}">Edit</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Hapus</a></td>
+                                    <td><a href="{{url('admin/user_management/edit_user', $value['id'])}}">Edit</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{$value['id']}}">Hapus</a></td>
                                 </tr>
                             </tbody>
+                            <!-- Modal -->
+                            <div class="modal fade" id="deleteModal{{$value['id']}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus User</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah anda ingin menghapus user ini?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <a href="{{url('actionAdminDeleteUser', $value['id'])}}" class="btn btn-danger">Hapus</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @empty
                             <tbody>
                                 <tr>
@@ -59,24 +77,7 @@
                         </table>
                     </div>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus User</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Apakah anda ingin menghapus user ini?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a href="{{url('actionAdminDeleteUser', $value['id'])}}" class="btn btn-danger">Hapus</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>

@@ -48,17 +48,35 @@
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
-                        @forelse ($buku as $item)
+                        @forelse ($buku as $item => $value)
                         <tbody>
                             <tr>
-                                <th scope="row">{{ $item['no'] }}</th>
-                                <td><img src="{{'http://127.0.0.1:8000/storage/' . $item['cover_buku'] }}" alt="book_cover" style="height: 160px; aspect-ratio:1/1.5"></td>
-                                <td>{{ $item['judul'] }}</td>
-                                <td>{{ $item['pengarang']['nama'] }}</td>
-                                <td>{{ $item['penerbit']['nama'] }}</td>
-                                <td><a href="{{url('admin/edit_buku', $item['id'])}}">Edit</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Hapus</a></td>
+                                <th scope="row">{{ $item+1 }}</th>
+                                <td><img src="{{'http://127.0.0.1:8000/storage/' . $value['cover_buku'] }}" alt="book_cover" style="height: 160px; aspect-ratio:1/1.5"></td>
+                                <td>{{ $value['judul'] }}</td>
+                                <td>{{ $value['pengarang']['nama'] }}</td>
+                                <td>{{ $value['penerbit']['nama'] }}</td>
+                                <td><a href="{{url('admin/edit_buku', $value['id'])}}">Edit</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{$value['id']}}">Hapus</a></td>
                             </tr>
                         </tbody>
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal{{$value['id']}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus Buku</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Apakah anda ingin menghapus buku ini?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <a href="{{url('actionDeleteBuku', $value['id'])}}" class="btn btn-danger">Hapus</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         @empty
                         <tbody>
                             <tr>
@@ -69,24 +87,7 @@
                     </table>
                 </div>
 
-                <!-- Modal -->
-                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus Buku</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Apakah anda ingin menghapus buku ini?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <a href="{{url('actionDeleteBuku', $item['id'])}}" class="btn btn-danger">Hapus</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

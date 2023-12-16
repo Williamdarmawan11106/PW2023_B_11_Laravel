@@ -34,6 +34,11 @@
                                         <span class="badge" style="background-color: {{$item['kategori']['warna']}}">{{$item['kategori']['nama']}}</span>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="{{url('review',$item['id'])}}">Review</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,11 @@
 
 <main>
     <div class="container">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <b>Oops!</b> {{$errors->first()}}
+        </div>
+        @endif
         <div class="card">
             <div class="card-body">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">

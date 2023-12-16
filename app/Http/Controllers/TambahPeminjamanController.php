@@ -40,11 +40,15 @@ class TambahPeminjamanController extends Controller
 
 
         if (!$buku) {
-            return back()->with('error', 'Data buku tidak ditemukan.');
+            return back()->withErrors('Data buku tidak ditemukan.');
         }
 
         if (!$user) {
-            return back()->with('error', 'Data user tidak ditemukan.');
+            return back()->withErrors('Data user tidak ditemukan.');
+        }
+
+        if ($buku->stok <= 0) {
+            return back()->withErrors('Stok buku kosong.');
         }
 
         $buku->stok = $buku->stok - 1;
