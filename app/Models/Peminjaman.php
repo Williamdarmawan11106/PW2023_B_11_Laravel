@@ -14,18 +14,7 @@ class Peminjaman extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'id_anggota',
-        'id_petugas',
         'tgl_pinjam',
         'tgl_kembali',
     ];
-
-    public function anggota()
-    {
-        return $this->belongsTo(User::class, 'id_anggota');
-    }
-    public function petugas()
-    {
-        return $this->belongsTo(User::class, 'id_petugas');
-    }
 }

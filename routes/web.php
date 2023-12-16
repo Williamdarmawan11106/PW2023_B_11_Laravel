@@ -18,6 +18,7 @@ use App\Http\Controllers\TambahKategoriController;
 use App\Http\Controllers\TambahPengarangController;
 use App\Http\Controllers\TambahPenerbitController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\TambahPeminjamanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,31 +73,13 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/user_management/edit_user/{id}', [AdminEditUserController::class, 'index']);
     Route::post('actionAdminUpdateProfile/{id}', [AdminEditUserController::class, 'actionUpdateProfile'])->name('actionAdminUpdateProfile');
     Route::get('actionAdminDeleteUser/{id}', [UserManagementController::class, 'actionDeleteUser'])->name('actionAdminDeleteUser');
+    Route::get('/admin/tambah_peminjaman', [TambahPeminjamanController::class, 'index']);
+    Route::post('actionTambahPeminjaman', [TambahPeminjamanController::class, 'actionTambahPeminjaman'])->name('actionTambahPeminjaman');
 });
 
 
 
 
-Route::get('/admin/tambah_peminjaman', function () {
-    return view('admin/tambah_peminjaman', [
-        'buku' =>     [
-            [
-                'no' => 1,
-                'judul' => 'Lorem',
-                'pengarang' => 'Doe',
-                'penerbit' => 'Atma Jaya',
-                'jumlah' => 10
-            ],
-            [
-                'no' => 2,
-                'judul' => 'Ipsum',
-                'pengarang' => 'Joe',
-                'penerbit' => 'UAJY Lib',
-                'jumlah' => 3
-            ]
-        ]
-    ]);
-});
 
 Route::get('/admin/pengembalian', function () {
     return view('admin/pengembalian_buku', [
