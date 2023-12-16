@@ -6,19 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Mail\MailSend;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
-class ProfileController extends Controller
+class AdminEditUserController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $user = User::where('id', auth()->user()->id)->first();
-        return view('user.profile_user', compact('user'));
+        $user = User::find($id);
+        return view('admin.edit_user', compact('user'));
     }
 
-    public function actionUpdateProfile(Request $request)
+    public function actionUpdateProfile(Request $request, $id)
     {
         $data = $request->all();
         $str = Str::random(100);
@@ -36,7 +36,11 @@ class ProfileController extends Controller
             return back()->withErrors($validate);
         }
 
-        $user = User::find(auth()->user()->id);
+        $user = User::find($id);
+
+        if (!$user) {
+            return back()->with('error', 'Data user tidak ditemukan.');
+        }
 
         if ($user->foto) {
             Storage::disk('public')->delete($user->foto);
@@ -61,7 +65,7 @@ class ProfileController extends Controller
             ];
             $data['active'] = null;
             Mail::to($request->email)->send(new MailSend($details));
-            $user = User::find(auth()->user()->id)->update([
+            $user = User::find($id)->update([
                 'nama' => $data['nama'],
                 'email' => $data['email'],
                 'no_telp' => $data['no_telp'],
@@ -72,7 +76,7 @@ class ProfileController extends Controller
                 'active' => $data['active']
             ]);
         } else {
-            $user = User::find(auth()->user()->id)->update([
+            $user = User::find($id)->update([
                 'nama' => $data['nama'],
                 'email' => $data['email'],
                 'no_telp' => $data['no_telp'],
@@ -81,9 +85,6 @@ class ProfileController extends Controller
                 'password' => $data['password']
             ]);
         }
-
-
-
-        return redirect('user')->with('success', 'Update data diri berhasil.');
+        return redirect('admin/user_management')->with('success', 'Update data diri berhasil.');
     }
 }

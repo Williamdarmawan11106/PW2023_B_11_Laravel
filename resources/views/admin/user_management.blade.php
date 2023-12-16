@@ -3,6 +3,11 @@
 
     <main>
         <div class="container">
+            @if (Session::has('success'))
+            <div class="alert alert-success">
+                <b>Success!</b> {{session('success')}}
+            </div>
+            @endif
             <div class="card">
                 <div class="card-body">
                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -29,21 +34,25 @@
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            @forelse ($user as $item)
+                            @forelse ($users as $item => $value)
                             <tbody>
                                 <tr>
-                                    <th scope="row">{{ $item['id'] }}</th>
-                                    <td><img src="{{ $item['foto'] }}" alt="book_cover" style="width: 100px"></td>
-                                    <td>{{ $item['nama'] }}</td>
-                                    <td>{{ $item['email'] }}</td>
-                                    <td>{{ $item['alamat'] }}</td>
-                                    <td><a href="{{url('admin/edit_user')}}">Edit</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Hapus</a></td>
+                                    <th scope="row">{{ $item+1 }}</th>
+                                    <td><img src="{{'http://127.0.0.1:8000/storage/'.$value['foto'] }}" alt="profil_user" style="width: 100px"></td>
+                                    <td>{{ $value['nama'] }}</td>
+                                    @if ($value['active'] == null)
+                                    <td>{{ $value['email'] }} <span class="badge text-bg-danger">Unverified</span></td>
+                                    @else
+                                    <td>{{ $value['email'] }} <span class="badge text-bg-success">Verified</span></td>
+                                    @endif
+                                    <td>{{ $value['alamat'] }}</td>
+                                    <td><a href="{{url('admin/user_management/edit_user', $value['id'])}}">Edit</a> | <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Hapus</a></td>
                                 </tr>
                             </tbody>
                             @empty
                             <tbody>
                                 <tr>
-                                    <td colspan="5" class="text-center">Tidak ada data</td>
+                                    <td colspan="5" class="text-center">Tidak ada data user</td>
                                 </tr>
                             </tbody>
                             @endforelse
@@ -63,7 +72,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <a href="{{url('admin/user_management')}}" class="btn btn-danger">Hapus</a>
+                                    <a href="{{url('actionAdminDeleteUser', $value['id'])}}" class="btn btn-danger">Hapus</a>
                                 </div>
                             </div>
                         </div>

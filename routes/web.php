@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminEditUserController;
 use App\Http\Controllers\BayarTagihanController;
 use App\Http\Controllers\EditBukuController;
 use App\Http\Controllers\HapusBukuController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\TambahBukuController;
 use App\Http\Controllers\TambahKategoriController;
 use App\Http\Controllers\TambahPengarangController;
 use App\Http\Controllers\TambahPenerbitController;
+use App\Http\Controllers\UserManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +68,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('actionTambahPenerbit', [TambahPenerbitController::class, 'actionTambahPenerbit'])->name('actionTambahPenerbit');
     Route::get('/admin/tambah_buku/tambah_kategori', [TambahKategoriController::class, 'index']);
     Route::post('actionTambahKategori', [TambahKategoriController::class, 'actionTambahKategori'])->name('actionTambahKategori');
+    Route::get('/admin/user_management', [UserManagementController::class, 'index']);
+    Route::get('/admin/user_management/edit_user/{id}', [AdminEditUserController::class, 'index']);
+    Route::post('actionAdminUpdateProfile/{id}', [AdminEditUserController::class, 'actionUpdateProfile'])->name('actionAdminUpdateProfile');
+    Route::get('actionAdminDeleteUser/{id}', [UserManagementController::class, 'actionDeleteUser'])->name('actionAdminDeleteUser');
 });
 
 
@@ -107,43 +113,6 @@ Route::get('/admin/pengembalian', function () {
                 'jadwalKembali' => '18/10/2023',
                 'denda' => 'Rp. 20.000'
             ]
-        ]
-    ]);
-});
-
-Route::get('/admin/user_management', function () {
-    return view('admin/user_management', [
-        'user' => [
-            [
-                'id' => 1,
-                'nama' => 'John',
-                'alamat' => 'Babarsari',
-                'no_tlp' => '0812345678',
-                'foto' => '../images/person.jpg',
-                'email' => 'john@gmail.com',
-                'password' => '1234',
-            ],
-            [
-                'id' => 2,
-                'nama' => 'John',
-                'alamat' => 'Babarsari',
-                'no_tlp' => '0812345678',
-                'foto' => '../images/person.jpg',
-                'email' => 'john@gmail.com',
-                'password' => '1234',
-            ]
-        ]
-    ]);
-});
-
-Route::get('/admin/edit_user', function () {
-    return view('admin/edit_user', [
-        'user' => [
-            'nama' => 'John',
-            'email' => 'john@gmail.com',
-            'alamat' => 'Jl. Lorem Ipsum',
-            'no_telp' => '08123456789',
-            'profile_picture' => '../images/person.jpg'
         ]
     ]);
 });
