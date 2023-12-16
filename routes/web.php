@@ -19,6 +19,7 @@ use App\Http\Controllers\TambahPengarangController;
 use App\Http\Controllers\TambahPenerbitController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\TambahPeminjamanController;
+use App\Http\Controllers\PengembalianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,27 +76,8 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('actionAdminDeleteUser/{id}', [UserManagementController::class, 'actionDeleteUser'])->name('actionAdminDeleteUser');
     Route::get('/admin/tambah_peminjaman', [TambahPeminjamanController::class, 'index']);
     Route::post('actionTambahPeminjaman', [TambahPeminjamanController::class, 'actionTambahPeminjaman'])->name('actionTambahPeminjaman');
-});
-
-
-
-
-
-Route::get('/admin/pengembalian', function () {
-    return view('admin/pengembalian_buku', [
-        'buku' =>     [
-            [
-                'no' => 1,
-                'judul' => 'Lorem',
-                'jadwalKembali' => '20/10/2023',
-                'denda' => 'Rp. 10.000'
-            ],
-            [
-                'no' => 2,
-                'judul' => 'Ipsum',
-                'jadwalKembali' => '18/10/2023',
-                'denda' => 'Rp. 20.000'
-            ]
-        ]
-    ]);
+    Route::get('/admin/pengembalian', [PengembalianController::class, 'index']);
+    Route::get('actionPerpanjang/{id}', [PengembalianController::class, 'actionPerpanjang'])->name('actionPerpanjang');
+    Route::get('actionKembaliBuku/{id}', [PengembalianController::class, 'actionKembaliBuku'])->name('actionKembaliBuku');
+    Route::post('actionCari', [PengembalianController::class, 'actionCari'])->name('actionCari');
 });

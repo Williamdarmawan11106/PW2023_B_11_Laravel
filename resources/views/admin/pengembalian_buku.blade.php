@@ -3,6 +3,16 @@
 
 <main>
     <div class="container">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <b>Oops!</b> {{$errors->first()}}
+        </div>
+        @endif
+        @if (Session::has('success'))
+        <div class="alert alert-success">
+            <b>Success!</b> {{session('success')}}
+        </div>
+        @endif
         <div class="card">
             <div class="card-body">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -14,15 +24,25 @@
                 <div class="card-title">
                     <h3>PENGEMBALIAN BUKU</h3>
                 </div>
-                <form action="#">
+                <form action="{{url('actionCari')}}" method="post">
+                    @csrf
                     <div class="row justify-content-start align-items-end">
                         <div class="col-auto">
                             <label for="nama">Nama peminjam</label>
-                            <input type="text" id="nama" class="form-control" required>
+                            <br>
+                            <select id="user" name="id_user" class="form-control w-100" tabindex="-1" aria-hidden="true" required>
+                                <option selected disabled hidden>Nama Peminjam</option>
+                                @foreach ($user as $item)
+                                <option value="{{$item['id']}}">{{$item['nama']}}</option>
+                                @endforeach
+                            </select>
                         </div>
+                    </div>
+                    <div class="row justify-content-start align-items-end mt-2">
                         <div class="col-auto mt-2 mt-md-0">
                             <button type="submit" class="btn btn-success w-100">Cari</button>
                         </div>
+
                     </div>
                 </form>
 
@@ -42,36 +62,26 @@
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
-                        @forelse ($buku as $item)
+                        @forelse ($detailPeminjaman as $item => $value)
                         <tbody>
                             <tr>
-                                <th scope="row">{{$item['no']}}</th>
-                                <td>{{$item['judul']}}</td>
-                                <td>{{$item['jadwalKembali']}}</td>
-                                <td>{{$item['denda']}}</td>
-                                <td><a href="#">Perpanjang</a> | <a href="#">Dikembalikan</a></td>
+
+                                <th scope="row">{{$item+1}}</th>
+                                <td>{{$value['buku']['judul']}}</td>
+                                <td>{{$value['peminjaman']['tgl_kembali']}}</td>
+                                <td>Rp. {{\Carbon\Carbon::parse($value['peminjaman']['tgl_kembali'])->gt(\Carbon\Carbon::now()) ? $denda = 0 : $denda = \Carbon\Carbon::parse($value['peminjaman']['tgl_kembali'])->diffInDays(\Carbon\Carbon::now()) * 10000}}</td>
+                                <td><a href="{{url('actionPerpanjang', $value['peminjaman']['id'])}}">Perpanjang</a> | <a href="{{url('actionKembaliBuku', $value['peminjaman']['id'])}}">Dikembalikan</a></td>
                             </tr>
                         </tbody>
                         @empty
                         <tbody>
                             <tr>
-                                <td colspan="5" class="text-center">Tidak ada buku yang dipinjam</td>
+                                <td colspan="5" class="text-center">{{$null}}</td>
                             </tr>
                         </tbody>
                         @endforelse
                     </table>
                 </div>
-                <div class="row justify-content-end">
-                    <div class="col-auto">
-                        <form action="{{url('/admin')}}">
-                            <input type="hidden" name="nama" id="nama" value="*idPeminjam*">
-                            <input type="hidden" name="pengembalian" id="pengembalian" value="*tglKembali*">
-                            <input type="hidden" name="buku" id="buku" value="*idBuku*">
-                            <button type="submit" class="btn btn-primary w-100">Simpan</button>
-                        </form>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
