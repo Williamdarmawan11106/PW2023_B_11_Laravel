@@ -27,7 +27,7 @@
                         <div class="card" style="background-color: inherit; border: none; color: white;">
                             <a href="#" class="btn btn-sm" style="color: white; text-align:center;">
                                 Admin
-                                <img class="rounded-circle" alt="avatar1" src="{{'http://127.0.0.1:8000/storage/' . auth()->user()->foto ?? 'profile/blank-profile-picture-973460_1280.png'}}" style="width: 40px;" />
+                                <img class="rounded-circle" alt="avatar1" src="{{'storage/' . auth()->user()->foto ?? 'profile/blank-profile-picture-973460_1280.png'}}" style="width: 40px;" />
                             </a>
                         </div>
                     </div>

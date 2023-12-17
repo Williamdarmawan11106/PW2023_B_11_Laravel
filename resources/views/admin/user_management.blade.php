@@ -38,7 +38,7 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">{{ $item+1 }}</th>
-                                    <td><img src="{{'http://127.0.0.1:8000/storage/'.$value['foto'] }}" alt="profil_user" style="width: 100px"></td>
+                                    <td><img src="{{'storage/'.$value['foto'] }}" alt="profil_user" style="width: 100px"></td>
                                     <td>{{ $value['nama'] }}</td>
                                     @if ($value['active'] == null)
                                     <td>{{ $value['email'] }} <span class="badge text-bg-danger">Unverified</span></td>

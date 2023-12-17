@@ -19,7 +19,7 @@
                 @endif
                 <div class="row mt-4 align-items-center justify-content-sm-start justify-content-center">
                     <div class="col-auto col-sm-auto">
-                        <img class="" alt="avatar1" src="http://127.0.0.1:8000/storage/{{$detail['buku']['cover_buku']}}" style="width: 160px;" />
+                        <img class="" alt="avatar1" src="storage/{{$detail['buku']['cover_buku']}}" style="width: 160px;" />
                     </div>
                     <div class="col-auto col-sm-6">
                         <h4>{{$detail['buku']['judul']}}</h4>
