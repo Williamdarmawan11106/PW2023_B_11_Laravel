@@ -27,8 +27,8 @@ class AdminEditUserController extends Controller
             'nama' => 'required|max:60',
             'email' => 'required|email:rfc,dns',
             'no_telp' => 'required|regex:/^08[0-9]{9,11}$/',
-            'foto' => 'required|mimes:jpg,jpeg,png',
-            'password' => 'required|min:8',
+            // 'foto' => 'required|mimes:jpg,jpeg,png',
+            // 'password' => 'min:8',
             'alamat' => 'required|max:255',
         ]);
 
@@ -42,11 +42,15 @@ class AdminEditUserController extends Controller
             return back()->with('error', 'Data user tidak ditemukan.');
         }
 
-        if ($user->foto) {
-            Storage::disk('public')->delete($user->foto);
+        if ($request->file('foto') == null) {
+            unset($data['foto']);
+        } else {
+            if ($user->foto) {
+                Storage::disk('public')->delete($user->foto);
+            }
+            $imagePath = $request->file('foto')->store('profile', 'public');
+            $data['foto'] = $imagePath;
         }
-
-        $imagePath = $request->file('foto')->store('profile', 'public');
 
         if ($data['email'] != $user->email) {
             $validate = validator::make($data, [
@@ -76,14 +80,11 @@ class AdminEditUserController extends Controller
                 'active' => $data['active']
             ]);
         } else {
-            $user = User::find($id)->update([
-                'nama' => $data['nama'],
-                'email' => $data['email'],
-                'no_telp' => $data['no_telp'],
-                'alamat' => $data['alamat'],
-                'foto' => $imagePath,
-                'password' => $data['password']
-            ]);
+            if ($data['password'] == null) {
+                unset($data['password']);
+            }
+
+            $user = User::find($id)->update($data);
         }
         return redirect('admin/user_management')->with('success', 'Update data diri berhasil.');
     }
