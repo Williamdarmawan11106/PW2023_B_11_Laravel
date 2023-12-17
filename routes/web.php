@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('actionUpdateProfile', [ProfileController::class, 'actionUpdateProfile'])->name('actionUpdateProfile');
     Route::get('/user/review_buku/{id}', [ReviewController::class, 'index']);
     Route::post('actionReview', [ReviewController::class, 'actionReview'])->name('actionReview');
+    Route::get('/user/logout', [LoginController::class, 'actionLogout'])->name('actionLogout');
 });
 
 Route::middleware(['auth:admin'])->group(function () {
@@ -82,4 +83,5 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('actionPerpanjang/{id}', [PengembalianController::class, 'actionPerpanjang'])->name('actionPerpanjang');
     Route::get('actionKembaliBuku/{id}', [PengembalianController::class, 'actionKembaliBuku'])->name('actionKembaliBuku');
     Route::post('actionCari', [PengembalianController::class, 'actionCari'])->name('actionCari');
+    Route::get('/admin/logout', [LoginAdminController::class, 'logout'])->name('logout');
 });

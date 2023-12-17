@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <a class="text-light" href="{{url('')}}"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                        <a class="text-light" href="{{url('/admin/logout')}}"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
                     </div>
                 </div>
             </div>
