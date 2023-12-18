@@ -69,6 +69,7 @@
                                 <th scope="col">No</th>
                                 <th scope="col">Judul</th>
                                 <th scope="col">Tanggal Pinjam</th>
+                                <th scope="col">Tanggal Kembali</th>
                                 <th scope="col">Sisa Durasi</th>
                             </tr>
                         </thead>
@@ -82,6 +83,7 @@
                                 <th scope="row">{{$item+1}}</th>
                                 <td>{{$value['buku']['judul']}}</td>
                                 <td>{{$value['peminjaman']['tgl_pinjam']}}</td>
+                                <td>{{$value['peminjaman']['tgl_kembali']}}</td>
                                 <td>
                                     @if($sisaDurasi < 0) <span class=" badge bg-danger">{{$sisaDurasi}} Hari</span>
                                         @elseif($sisaDurasi <= 1) <span class=" badge bg-warning">{{$sisaDurasi}} Hari</span>
