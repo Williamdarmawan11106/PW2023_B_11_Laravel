@@ -16,41 +16,46 @@ class RegisterController extends Controller
     {
         return view('register');
     }
+
     public function registerAction(Request $request)
     {
         $registrationData = $request->all();
 
-        $validate = validator::make($registrationData, [
+        $validate = Validator::make($registrationData, [
             'nama' => 'required|max:60',
-            'email' => 'required|email:rfc,dns|unique:users',
+            'email' => 'required|email:rfc,dns|unique:users,email',
             'no_telp' => 'required|regex:/^08[0-9]{9,11}$/',
             'foto' => 'required|mimes:jpg,jpeg,png',
             'password' => 'required|min:8',
             'alamat' => 'required|max:255',
         ]);
 
-        // return $registrationData['foto'];
         if ($validate->fails()) {
-            Session::flash('error', $validate->errors()->first());
-            return back();
+            return back()->withErrors($validate)->withInput();
         }
+
         $registrationData['password'] = bcrypt($request->password);
         $str = Str::random(100);
         $registrationData['verify_key'] = $str;
 
         if ($request->hasFile('foto')) {
             $imagePath = $request->file('foto')->store('profile', 'public');
-
             $registrationData['foto'] = $imagePath;
         }
 
         $details = [
             'nama' => $registrationData['nama'],
             'website' => 'Libraria',
-            'datetime' => date('Y-m-d H:i:s'),
+            'datetime' => now()->format('Y-m-d H:i:s'),
             'url' => request()->getHttpHost() . '/register/verify/' . $str
         ];
-        Mail::to($request->email)->send(new MailSend($details));
+
+        try {
+            Mail::to($registrationData['email'])->send(new MailSend($details));
+        } catch (\Exception $e) {
+            return back()->withInput()->withErrors(['email' => 'Gagal mengirim email verifikasi.']);
+        }
+
         $user = User::create($registrationData);
 
         return redirect('login');
@@ -58,19 +63,13 @@ class RegisterController extends Controller
 
     public function verify($verify_key)
     {
-        $keyCheck = User::select('verify_key')
-            ->where('verify_key', $verify_key)
-            ->exists();
+        $keyCheck = User::where('verify_key', $verify_key)->exists();
 
         if ($keyCheck) {
-            $user = User::where('verify_key', $verify_key)
-                ->update([
-                    'active' => 1,
-                ]);
-
+            User::where('verify_key', $verify_key)->update(['active' => 1]);
             return "Verifikasi Berhasil. Akun anda sudah aktif";
         } else {
-            return "Keys Tidak Valid.";
+            return "Kunci Tidak Valid.";
         }
     }
 }

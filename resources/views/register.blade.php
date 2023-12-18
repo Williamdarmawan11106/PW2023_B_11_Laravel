@@ -28,9 +28,20 @@
                             </div>
                             @if (Session::has('error'))
                             <div class="alert alert-danger">
-                                <b>Oops!</b> {{session('error')}}
+                                <b>Oops!</b> {{ session('error') }}
                             </div>
                             @endif
+
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+
                             <form action="{{ route('registerAction') }}" method="post" id="loginForm" enctype="multipart/form-data">
                                 @csrf
                                 <label for="nama">Nama</label>
@@ -49,7 +60,7 @@
                                 <input type="password" name="password" class="form-control mb-2 py-2" required />
 
                                 <label for="foto" class="form-label">Foto Profil</label>
-                                <input class="form-control" type="file" name="foto" accept="image/*" required>
+                                <input class="form-control" type="file" name="foto" accept="image/*" required />
 
                                 <hr class="hr" />
 
@@ -62,7 +73,6 @@
                                         </button>
                                     </div>
                                 </div>
-
                             </form>
                         </div>
                     </div>
