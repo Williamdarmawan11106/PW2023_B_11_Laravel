@@ -14,20 +14,26 @@
                 <div class="card-title">
                     <h3>EDIT BUKU</h3>
                 </div>
-                <form action="{{url('admin')}}">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <b>Oops!</b> {{$errors->first()}}
+                </div>
+                @endif
+                <form action="{{route('actionEditBuku', $buku['id'])}}" method="post" enctype="multipart/form-data">
+                    @csrf
                     <div class="row justify-content-start align-items-end">
 
                         <div class="col-auto">
                             <label for="nama">Judul Buku</label>
-                            <input type="text" id="judul" class="form-control" required>
+                            <input type="text" name="judul" class="form-control" required value="{{$buku['judul']}}">
                         </div>
                         <div class="col-auto col-md-2">
                             <label for="pengarang">Pengarang</label>
-                            <select class="form-select">
-                                <option selected>Pengarang Buku</option>
-                                <option value="1">John</option>
-                                <option value="2">Doe</option>
-                                <option value="3">El</option>
+                            <select class="form-select" name="id_pengarang">
+                                <option selected hidden value="{{$buku['pengarang']['id']}}">{{$buku['pengarang']['nama'] ?? "Pengarang Buku"}}</option>
+                                @foreach ($pengarang as $item)
+                                <option value="{{$item['id']}}">{{$item['nama']}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -35,15 +41,15 @@
                     <div class="row justify-content-start align-items-end">
                         <div class="col-auto">
                             <label for="stok">Stok</label>
-                            <input type="number" id="stok" class="form-control" required>
+                            <input type="number" name="stok" class="form-control" required value="{{$buku['stok']}}">
                         </div>
                         <div class="col-auto col-md-2">
                             <label for="penerbit">Penerbit</label>
-                            <select class="form-select">
-                                <option selected>Penerbit Buku</option>
-                                <option value="1">Atma Jaya</option>
-                                <option value="2">Uajy</option>
-                                <option value="3">Jaya Library</option>
+                            <select class="form-select" name="id_penerbit">
+                                <option selected hidden value="{{$buku['penerbit']['id']}}">{{$buku['penerbit']['nama'] ?? "Penerbit Buku"}}</option>
+                                @foreach ($penerbit as $item)
+                                <option value="{{$item['id']}}">{{$item['nama']}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -51,15 +57,15 @@
                     <div class="row justify-content-start align-items-end">
                         <div class="col-auto col-lg-3">
                             <label for="bookCover">Cover Buku</label>
-                            <input type="file" id="bookCover" class="form-control" required>
+                            <input type="file" name="cover_buku" class="form-control" accept="image/*" required>
                         </div>
                         <div class="col-auto">
                             <label for="kategori">Kategori</label>
-                            <select class="form-select">
-                                <option selected>Kategori Buku</option>
-                                <option value="1">Technology</option>
-                                <option value="2">Sains</option>
-                                <option value="3">Education</option>
+                            <select class="form-select" name="id_kategori">
+                                <option selected hidden value="{{$buku['kategori']['id']}}">{{$buku['kategori']['nama'] ?? "Kategori Buku"}}</option>
+                                @foreach ($kategori as $item)
+                                <option value="{{$item['id']}}">{{$item['nama']}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -70,9 +76,6 @@
                         </div>
                     </div>
                 </form>
-
-
-
             </div>
         </div>
     </div>

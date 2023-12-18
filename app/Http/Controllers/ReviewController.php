@@ -45,8 +45,14 @@ class ReviewController extends Controller
 
         $data['id_anggota'] = auth()->user()->id;
 
-        $review = Review::create($data);
+        $validateUser = Review::where('id_anggota', auth()->user()->id)->where('id_buku', $data['id_buku'])->first();
 
-        return redirect('user')->with('success', 'Review berhasil ditambahkan.');
+        if ($validateUser) {
+            $validateUser->update($data);
+            return redirect('user')->with('success', 'Review berhasil diubah.');
+        } else {
+            $review = Review::create($data);
+            return redirect('user')->with('success', 'Review berhasil ditambahkan.');
+        }
     }
 }

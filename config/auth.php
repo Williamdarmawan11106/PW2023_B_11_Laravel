@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+        'petugas' => [
+            'driver' => 'passport',
+            'provider' => 'petugas',
+        ],
     ],
 
     /*
@@ -70,6 +74,11 @@ return [
         ],
 
         'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Petugas::class,
+        ],
+
+        'petugas' => [
             'driver' => 'eloquent',
             'model' => App\Models\Petugas::class,
         ],

@@ -3,6 +3,11 @@
 
 <main>
     <div class="container">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <b>Oops!</b> {{$errors->first()}}
+        </div>
+        @endif
         <div class="card">
             <div class="card-body">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -15,12 +20,12 @@
                 <div class="card-title">
                     <h3>TAMBAH PENERBIT</h3>
                 </div>
-                <form action="{{url('admin/tambah_buku')}}">
+                <form action="{{route('actionTambahPenerbit')}}" method="post">
                     <div class="row justify-content-start align-items-end">
-
+                        @csrf
                         <div class="col-auto">
                             <label for="nama">Nama Penerbit</label>
-                            <input type="text" id="namaPenerbit" class="form-control" required>
+                            <input type="text" name="nama" id="namaPenerbit" class="form-control" required>
                         </div>
                     </div>
                     <div class="row justify-content-end align-items-end mt-2">
@@ -29,11 +34,6 @@
                         </div>
                     </div>
                 </form>
-
-
-
-
-
             </div>
         </div>
     </div>

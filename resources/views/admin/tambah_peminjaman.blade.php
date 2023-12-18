@@ -3,6 +3,11 @@
 
 <main>
     <div class="container">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <b>Oops!</b> {{$errors->first()}}
+        </div>
+        @endif
         <div class="card">
             <div class="card-body">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -14,25 +19,40 @@
                 <div class="card-title">
                     <h3>TAMBAH PEMINJAMAN</h3>
                 </div>
-                <form action="#">
+                <form action="{{route('actionTambahPeminjaman')}}" method="post">
+                    @csrf
                     <div class="row justify-content-start align-items-center">
-
                         <div class="col-auto">
                             <label for="nama">Nama peminjam</label>
-                            <input type="text" id="nama" class="form-control" required>
+                            <br>
+                            <select id="peminjam" name="id_user" class="form-control w-100" tabindex="-1" aria-hidden="true" required>
+                                <option selected disabled hidden>Nama Peminjam</option>
+                                @foreach ($users as $item)
+                                <option value="{{$item['id']}}">{{$item['nama']}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-auto">
                             <label for="pengembalian">Pengembalian</label>
-                            <input type="date" id="pengembalian" class="form-control" required>
+                            <input type="date" name="tgl_kembali" id="pengembalian" class="form-control" min="{{Carbon\Carbon::now()->format('Y-m-d')}}" max="{{Carbon\Carbon::now()->addDays(7)->format('Y-m-d')}}" required>
                         </div>
                     </div>
                     <div class="row justify-content-start align-items-end">
                         <div class="col-auto">
                             <label for="judulBuku">Judul Buku</label>
-                            <input type="text" id="judulBuku" class="form-control" required>
+                            <br>
+                            <select id="judulBuku" name="id_buku" class="form-control w-75" tabindex="-1" aria-hidden="true" required>
+                                <option selected disabled hidden>Judul Buku</option>
+                                @foreach ($buku as $item)
+                                <option value="{{$item['id']}}">{{$item['judul']}}</option>
+                                @endforeach
+                            </select>
                         </div>
+
+                    </div>
+                    <div class="row mt-2 justify-content-start align-items-end">
                         <div class="col-auto mt-2 mt-md-0">
-                            <button type="submit" class="btn btn-success w-100">Cari</button>
+                            <button type="submit" class="btn btn-success w-100">Simpan</button>
                         </div>
                     </div>
                 </form>
@@ -53,14 +73,14 @@
                                 <th scope="col">Jumlah</th>
                             </tr>
                         </thead>
-                        @forelse ($buku as $item)
+                        @forelse ($buku as $item => $value)
                         <tbody>
                             <tr>
-                                <th scope="row">{{$item['no']}}</th>
-                                <td>{{$item['judul']}}</td>
-                                <td>{{$item['pengarang']}}</td>
-                                <td>{{$item['penerbit']}}</td>
-                                <td>{{$item['jumlah']}}</td>
+                                <th scope="row">{{$item+1}}</th>
+                                <td>{{$value['judul']}}</td>
+                                <td>{{$value['pengarang']['nama']}}</td>
+                                <td>{{$value['penerbit']['nama']}}</td>
+                                <td>{{$value['stok']}}</td>
                             </tr>
                         </tbody>
                         @empty
@@ -72,17 +92,6 @@
                         @endforelse
                     </table>
                 </div>
-                <div class="row justify-content-end">
-                    <div class="col-auto">
-                        <form action="{{url('/admin')}}">
-                            <input type="hidden" name="nama" id="nama" value="*idPeminjam*">
-                            <input type="hidden" name="pengembalian" id="pengembalian" value="*tglKembali*">
-                            <input type="hidden" name="buku" id="buku" value="*idBuku*">
-                            <button type="submit" class="btn btn-primary w-100">Simpan</button>
-                        </form>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

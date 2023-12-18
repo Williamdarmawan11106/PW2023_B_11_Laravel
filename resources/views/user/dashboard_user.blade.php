@@ -69,16 +69,28 @@
                                 <th scope="col">No</th>
                                 <th scope="col">Judul</th>
                                 <th scope="col">Tanggal Pinjam</th>
+                                <th scope="col">Tanggal Kembali</th>
                                 <th scope="col">Sisa Durasi</th>
                             </tr>
                         </thead>
                         @forelse ($peminjaman as $item => $value)
+                        @php
+                        $tglKembali = \Carbon\Carbon::parse($value['peminjaman']['tgl_kembali']);
+                        $sisaDurasi = now()->diffInDays($tglKembali, false);
+                        @endphp
                         <tbody>
                             <tr>
                                 <th scope="row">{{$item+1}}</th>
                                 <td>{{$value['buku']['judul']}}</td>
                                 <td>{{$value['peminjaman']['tgl_pinjam']}}</td>
-                                <td>{{ \Carbon\Carbon::parse($value['peminjaman']['tgl_pinjam'])->diffInDays($value['peminjaman']['tgl_kembali']) }} hari</td>
+                                <td>{{$value['peminjaman']['tgl_kembali']}}</td>
+                                <td>
+                                    @if($sisaDurasi < 0) <span class=" badge bg-danger">{{$sisaDurasi}} Hari</span>
+                                        @elseif($sisaDurasi <= 1) <span class=" badge bg-warning">{{$sisaDurasi}} Hari</span>
+                                            @else
+                                            <span class=" badge bg-success">{{$sisaDurasi}} Hari</span>
+                                            @endif
+                                </td>
                             </tr>
                         </tbody>
                         @empty

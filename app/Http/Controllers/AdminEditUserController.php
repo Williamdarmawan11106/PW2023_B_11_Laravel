@@ -6,23 +6,22 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Mail\MailSend;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
-class ProfileController extends Controller
+class AdminEditUserController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $user = User::where('id', auth()->user()->id)->first();
-        return view('user.profile_user', compact('user'));
+        $user = User::find($id);
+        return view('admin.edit_user', compact('user'));
     }
 
-    public function actionUpdateProfile(Request $request)
+    public function actionUpdateProfile(Request $request, $id)
     {
         $data = $request->all();
         $str = Str::random(100);
-        $id = auth()->user()->id;
 
         $validate = validator::make($data, [
             'nama' => 'required|max:60',
@@ -87,7 +86,6 @@ class ProfileController extends Controller
 
             $user = User::find($id)->update($data);
         }
-
-        return redirect('user')->with('success', 'Update data diri berhasil.');
+        return redirect('admin/user_management')->with('success', 'Update data diri berhasil.');
     }
 }

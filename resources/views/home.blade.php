@@ -23,7 +23,7 @@
                     @forelse ($buku as $item)
                     <div class="col-sm-3 mt-4">
                         <div class="card h-100">
-                            <img src="http://127.0.0.1:8000/storage/{{$item['cover_buku']}}" class="card-img-top" alt="..." style="height: 320px;">
+                            <img src="{{asset('storage/'.$item['cover_buku'])}}" class="card-img-top" alt="..." style="height: 320px;">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col">
@@ -32,6 +32,11 @@
                                     </div>
                                     <div class="col-auto text-end">
                                         <span class="badge" style="background-color: {{$item['kategori']['warna']}}">{{$item['kategori']['nama']}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="{{url('review',$item['id'])}}">Review</a>
                                     </div>
                                 </div>
                             </div>
