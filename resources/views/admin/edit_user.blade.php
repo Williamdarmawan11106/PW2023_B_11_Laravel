@@ -15,7 +15,7 @@
                 </nav>
                 <div class="row mt-4 align-items-center justify-content-sm-start justify-content-center">
                     <div class="col-auto col-sm-auto">
-                        <img class="rounded-circle" alt="avatar1" src="{{'storage/'.$user['foto'] }}" style="width: 160px; aspect-ratio:1/1" />
+                        <img class="rounded-circle" alt="avatar1" src="{{asset('storage/'.$user['foto']) }}" style="width: 160px; aspect-ratio:1/1" />
                     </div>
                     <div class="col-auto col-sm-6">
                         <h4>{{$user['nama']}}</h4>

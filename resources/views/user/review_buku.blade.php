@@ -19,7 +19,7 @@
                 @endif
                 <div class="row mt-4 align-items-center justify-content-sm-start justify-content-center">
                     <div class="col-auto col-sm-auto">
-                        <img class="" alt="avatar1" src="storage/{{$detail['buku']['cover_buku']}}" style="width: 160px;" />
+                        <img class="" alt="avatar1" src="{{asset('storage/' . $detail['buku']['cover_buku'])}}" style="width: 160px;" />
                     </div>
                     <div class="col-auto col-sm-6">
                         <h4>{{$detail['buku']['judul']}}</h4>
@@ -42,7 +42,7 @@
                         <div class="row mt-4">
                             <label for="rating">Rating</label>
                             <select class="form-select" name="rating" required>
-                                <option value="{{$review['rating'] ?? ''}}" selected disabled hidden>{{$review['rating'] ?? 'Rating Buku'}}</option>
+                                <option value="{{$review['rating'] ?? ''}}" selected hidden>{{$review['rating'] ?? 'Rating Buku'}}</option>
                                 <option value="Sangat Baik">Sangat Baik</i></option>
                                 <option value="Baik">Baik</i></option>
                                 <option value="Sedang">Sedang</i></option>
